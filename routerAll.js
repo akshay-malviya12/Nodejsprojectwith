@@ -1,3 +1,4 @@
+
 const express = require("express");
 const router = express.Router();
 const productRouter = require("./product");
@@ -7,6 +8,7 @@ const productdeleteRouter = require("./productdelete");
 const getrandomproductRouter = require("./getsingleproduct");
 const searchRouter = require("./search");
 const adminRouter = require("./admin");
+const mfaRouter = require("./mfa");
 const jwt = require("jsonwebtoken");
 const secretKey = "secretkey";
 const db = require("./database");
@@ -32,8 +34,8 @@ function authenticateUser(req, res, next) {
 function authorizeUser(type) {
   return (req, res, next) => {
     const { role } = req.user;
-    console.log("rolesssss", role, "typess", type);
-    if (role !== type) {
+    console.log("roles", role, "typess", type);
+    if (!role.includes(type)) {
       return res.status(403).json({ message: "Unauthorized" });
     }
     next();
@@ -66,17 +68,36 @@ const checkTokenValidity = (req, res, next) => {
   });
 };
 
-router.use("/product", productRouter);
-router.use("/updateProduct/:id", productupdateRouter);
+router.use(
+  "/product",
+  authenticateUser,
+  authorizeUser(["admin", "user"]),
+  productRouter,
+);
+router.use(
+  "/updateProduct/:id",
+  authenticateUser,
+  authorizeUser(["admin", "user"]),
+  productupdateRouter,
+);
 router.use(
   "/productlist",
   authenticateUser,
-  authorizeUser("admin"),
+  authorizeUser(["admin", "user"]),
   productlistRouter,
 );
 router.use("/", getrandomproductRouter);
-router.use("/productdelete/:id", productdeleteRouter);
+/*only admin delete product*/
+router.use(
+  "/productdelete/:id",
+  authenticateUser,
+  authorizeUser(["admin"]),
+  productdeleteRouter,
+);
+/*Both search and admibnRouter not complete start*/
 router.use("/search", searchRouter);
 router.use("/adminget", adminRouter);
+/* end */
+router.use("/mfaverify", mfaRouter);
 
 module.exports = router;
