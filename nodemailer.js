@@ -2,7 +2,7 @@ const nodeEmailer = require("nodemailer");
 
 const sendEmailForVerify = async (email, code) => {
   const transporter = nodeEmailer.createTransport({
-    host: "smtp.ethereal.email", //your host name
+    host: "smtp.ethereal11.email", //your host name
     port: 587, //
     secure: false,
     auth: {
