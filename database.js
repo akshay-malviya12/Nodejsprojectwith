@@ -16,7 +16,7 @@ db.serialize(() => {
       if (err) {
         console.log("error checking2" + err);
       } else {
-        console.log("table created successfully");
+        console.log("table usersAuths created successfully");
       }
     },
   );
@@ -25,7 +25,27 @@ db.serialize(() => {
 db.serialize(() => {
   db.run(
     "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT,category Text,company Text, description TEXT)",
+    (err) => {
+      if (err) {
+        console.log("error checking3" + err);
+      } else {
+        console.log("table products created successfully");
+      }
+    },
   );
 });
 
+//create table for OTPVerrification.
+db.serialize(() => {
+  db.run(
+    "CREATE TABLE IF NOT EXISTS OTPVarifications (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, verificationcode TEXT, expirationtime INTEGER)",
+    (err) => {
+      if (err) {
+        console.log("error checking3" + err);
+      } else {
+        console.log("table OTPVarifications created successfully.");
+      }
+    },
+  );
+});
 module.exports = db;
