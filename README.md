@@ -1,4 +1,4 @@
-### This is node js product ,texting this project
+### This is node js product ,testing this project
 ### firs of all install node related packages.
 ### Like npm install,npm install express,sqlite3,body-parser,cors,jsonwebtoken,bcrypt(for password ).
 ### npm install nodemailer.
