@@ -2,7 +2,7 @@
 ### firs of all install node related packages.
 ### Like npm install,npm install express,sqlite3,body-parser,cors,jsonwebtoken,bcrypt(for password ).
 ### npm install nodemailer.
-
+### SERVER FILE IS INDEX.JS
 before start testing you go nodemailer.js file and change host,port ,auth- user,pass in createTransport.
 for testing email sending or you can go etheral.com for testing and create account button click copy email and password without change host ,port change auth-user(copy email enter),pass(copy password enter).
 than enter from and to email.
